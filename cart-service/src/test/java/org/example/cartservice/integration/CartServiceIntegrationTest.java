@@ -47,10 +47,10 @@ public class CartServiceIntegrationTest {
     databaseClient.sql("DELETE FROM carts").then().block();
     databaseClient.sql("DELETE FROM products").then().block();
 
-    cartRepository.save(new Cart(null, "jacobo@gmail.com", LocalDateTime.now())).block();
-    cartRepository.save(new Cart(null, "jacobo2@gmail.com", LocalDateTime.now())).block();
-    cartRepository.save(new Cart(null, "jacobo3@gmail.com", LocalDateTime.now())).block();
-    cartRepository.save(new Cart(null, "jacobo4@gmail.com", LocalDateTime.now())).block();
+    cartRepository.save(new Cart(null, "juan1@gmail.com", LocalDateTime.now())).block();
+    cartRepository.save(new Cart(null, "juan2@gmail.com", LocalDateTime.now())).block();
+    cartRepository.save(new Cart(null, "juan3@gmail.com", LocalDateTime.now())).block();
+    cartRepository.save(new Cart(null, "juan4@gmail.com", LocalDateTime.now())).block();
 
     productRepository.save(new Product(null, "Jabon", "Jabon desc", 10, 10.0F, 1L)).block();
   }
@@ -59,12 +59,12 @@ public class CartServiceIntegrationTest {
   void addProductToCart() {
     Mockito.when(productConsumer.getProduct(1L)).thenReturn(Mono.just(new GetProductDTO(1L, "Product 1", "Description 1", 10, 10.0F)));
 
-    Mono<CartDTO> result = cartService.addProduct(new AddProductDTO(1L, 2), "jacobo@gmail.com");
+    Mono<CartDTO> result = cartService.addProduct(new AddProductDTO(1L, 2), "juan@gmail.com");
 
     StepVerifier
       .create(result)
       .assertNext(cart -> {
-        Assertions.assertEquals("jacobo@gmail.com", cart.getUserEmail());
+        Assertions.assertEquals("juan@gmail.com", cart.getUserEmail());
         Assertions.assertEquals(2, cart.getProducts().size());
       })
       .verifyComplete();

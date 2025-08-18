@@ -39,7 +39,7 @@ class CartServiceTest {
   @Test
   void purchase() {
     // Arrange
-    Cart cart = new Cart(1L, "jacobo@gmail.com", LocalDateTime.now());
+    Cart cart = new Cart(1L, "juan@gmail.com", LocalDateTime.now());
     Mockito.when(cartRepository.findByUserEmail(Mockito.anyString())).thenReturn(Mono.just(cart));
     Mockito.when(productRepository.findAllByCartId(Mockito.anyLong())).thenReturn(Flux.just(
       new Product(1L, "Cocacola", "Cocacola desc", 20, 10.0f, 1L),
@@ -51,7 +51,7 @@ class CartServiceTest {
     ));
 
     // Act
-    Mono<CartDTO> result = cartService.purchase("jacobo@gmail.com");
+    Mono<CartDTO> result = cartService.purchase("juan@gmail.com");
 
     StepVerifier
       .create(result)

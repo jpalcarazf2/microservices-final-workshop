@@ -23,12 +23,12 @@ class CartControllerTest {
 
   @Test
   void create() {
-    Cart cart = new Cart(1L, "jacobo@gmail.com", null);
+    Cart cart = new Cart(1L, "juan@gmail.com", null);
     Mockito.when(cartService.create(Mockito.anyString())).thenReturn(Mono.just(cart));
 
     webTestClient
       .post()
-      .uri("/api/carts/jacobo@gmail.com")
+      .uri("/api/carts/juan@gmail.com")
       .exchange()
       .expectStatus().isOk()
       .expectBody(Cart.class)
